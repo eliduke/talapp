@@ -6,7 +6,7 @@ class HomeScreenStylesheet < ApplicationStylesheet
   end
 
   def root_view(st)
-    st.background_color = color.light_gray
+    st.background_color = color.white
   end
 
 end

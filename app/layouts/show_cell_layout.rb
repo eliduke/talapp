@@ -1,4 +1,4 @@
-class EpisodeCellLayout < MotionKit::Layout
+class ShowCellLayout < MotionKit::Layout
 
   PADDING = 15
 
@@ -23,40 +23,40 @@ class EpisodeCellLayout < MotionKit::Layout
 
   def image_style
     constraints do
+      size.equals(200)
       top.equals(:superview).plus(PADDING)
-      left.equals(:superview).plus(PADDING)
-      size.equals(70)
+      left.equals(:superview).plus(75)
     end
   end
 
   def title_style
     constraints do
-      top.equals(:superview).plus(PADDING)
-      left.equals(:image, :right).plus(PADDING)
+      top.equals(:image, :bottom).plus(PADDING)
+      left.equals(:superview).plus(PADDING)
       right.equals(:superview).minus(PADDING)
     end
-    font rmq.font.standard_bold
+    font rmq.font.medium_bold
     color rmq.color.red
   end
 
   def date_style
     constraints do
       top.equals(:title, :bottom)
-      left.equals(:image, :right).plus(PADDING)
+      left.equals(:superview).plus(PADDING)
       right.equals(:superview).minus(PADDING)
     end
-    font rmq.font.small_bold
+    font rmq.font.standard_bold
     color rmq.color.blue
   end
 
   def description_style
     constraints do
       top.equals(:date, :bottom).plus(PADDING)
-      left.equals(:image, :right).plus(PADDING)
+      left.equals(:superview).plus(PADDING)
       right.equals(:superview).minus(PADDING)
       bottom.equals(:superview).minus(PADDING)
     end
-    font rmq.font.small
+    font rmq.font.standard
     line_break_mode NSLineBreakByWordWrapping
     number_of_lines 0
     size_to_fit

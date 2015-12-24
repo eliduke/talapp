@@ -1,8 +1,8 @@
-class EpisodeCell < UITableViewCell
+class ShowCell < UITableViewCell
 
   def initWithStyle(style, reuseIdentifier: identifier)
     super
-    @layout = EpisodeCellLayout.new(root: WeakRef.new(self)).build
+    @layout = ShowCellLayout.new(root: WeakRef.new(self)).build
     self
   end
 

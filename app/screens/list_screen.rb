@@ -1,4 +1,4 @@
-class HomeScreen < PM::GroupedTableScreen
+class ListScreen < PM::TableScreen
   title "This American Life"
   stylesheet HomeScreenStylesheet
   row_height :auto, estimated: 100
@@ -33,17 +33,17 @@ class HomeScreen < PM::GroupedTableScreen
     [{
       cells: @episodes.map do |episode|
         {
-          cell_class: EpisodeCell,
+          cell_class: ListCell,
           properties: { params: { episode: episode } },
-          action: :play_podcast,
-          arguments: episode.podcast_url
+          action: :show_episode,
+          arguments: episode
         }
       end
     }]
   end
 
-  def play_podcast(url)
-    BW::Media.play_modal(url)
+  def show_episode(episode)
+    open ShowScreen.new(nav_bar: true, episode: episode)
   end
 
   # You don't have to reapply styles to all UIViews, if you want to optimize, another way to do it
