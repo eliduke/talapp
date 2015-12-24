@@ -21,16 +21,16 @@ class StandardAppearance
       #   o.separatorColor = rmq.color.clear
       # end
 
-      # UINavigationBar.appearance.tap do |o|
-      #   o.barTintColor = rmq.color.black
-      #    o.setTintColor rmq.color.white
+      UINavigationBar.appearance.tap do |o|
+        o.barTintColor = rmq.color.red
+        o.setTintColor rmq.color.white
 
-      #    o.setTitleTextAttributes( {
-      #      UITextAttributeFont => rmq.font.medium,
-      #      UITextAttributeTextColor => rmq.color.white
-      #      #UITextAttributeTextShadowColor => color.clear
-      #    })
-      #  end
+        o.setTitleTextAttributes( {
+          UITextAttributeFont => rmq.font.large,
+          UITextAttributeTextColor => rmq.color.white
+          #UITextAttributeTextShadowColor => color.clear
+        })
+      end
 
       #  UIBarButtonItem.appearance.tap do |o|
       #    o.setTitleTextAttributes( {

@@ -25,8 +25,7 @@ Motion::Project::App.setup do |app|
   # app.sdk_version = '7.1'
 
   # Target OS
-  app.deployment_target = '7.1'
-  # app.deployment_target = '8.0'
+  app.deployment_target = '8.0'
 
   app.icons = Dir.glob("resources/icon*.png").map{|icon| icon.split("/").last}
 
@@ -34,6 +33,8 @@ Motion::Project::App.setup do |app|
   app.interface_orientations = [:portrait, :landscape_left, :landscape_right, :portrait_upside_down]
 
   app.files += Dir.glob(File.join(app.project_dir, 'lib/**/*.rb'))
+
+  app.info_plist['NSAppTransportSecurity'] = { 'NSAllowsArbitraryLoads' => true }
 
   # app.fonts = ['Oswald-Regular.ttf', 'FontAwesome.otf'] # These go in /resources
   # Or use all *.ttf fonts in the /resources/fonts directory:
@@ -45,8 +46,8 @@ Motion::Project::App.setup do |app|
 
   app.pods do
     pod 'SDWebImage'
+    pod 'SVProgressHUD'
   #   pod 'JGProgressHUD'
-  #   pod 'SVProgressHUD'
   #   pod "FontasticIcons"
   end
 
@@ -70,6 +71,3 @@ Motion::Project::App.setup do |app|
   puts "Using profile: #{app.provisioning_profile}"
   puts "Using certificate: #{app.codesign_certificate}"
 end
-
-# Remove this if you aren't using CDQ
-task :"build:simulator" => :"schema:build"

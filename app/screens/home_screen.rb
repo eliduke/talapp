@@ -1,20 +1,49 @@
-class HomeScreen < PM::Screen
-  title "Your title here"
+class HomeScreen < PM::GroupedTableScreen
+  title "This American Life"
   stylesheet HomeScreenStylesheet
+  row_height :auto, estimated: 100
+
+  refreshable callback: :fetch_data,
+    pull_message: "Pull down to refresh",
+    refreshing: "Loading...",
+    updated_format: "Last updated at %s",
+    updated_time_format: "%l:%M %p"
 
   def on_load
-    set_nav_bar_button :left, system_item: :camera, action: :nav_left_button
-    set_nav_bar_button :right, title: "Right", action: :nav_right_button
-
-    @hello_world = append!(UILabel, :hello_world)
+    @episodes = []
+    fetch_data
   end
 
-  def nav_left_button
-    mp 'Left button'
+  def fetch_data
+    AFMotion::JSON.get("http://api.thisamericanlife.co") do |response|
+      if response.success?
+        @episodes = []
+        response.object["podcasts"].each do |episode|
+          @episodes << Episode.new(episode)
+          update_table_data
+          end_refreshing
+        end
+      else
+        app.alert("Oops. Try again.")
+      end
+    end
   end
 
-  def nav_right_button
-    mp 'Right button'
+  def table_data
+    [{
+      cells: @episodes.map do |episode|
+        {
+          cell_class: EpisodeCell,
+          properties: { params: { episode: episode } },
+          action: :play_podcast,
+          arguments: episode.podcast_url
+        }
+      end
+    }]
+  end
+
+  def play_podcast(url)
+    BW::Media.play_modal(url)
   end
 
   # You don't have to reapply styles to all UIViews, if you want to optimize, another way to do it
