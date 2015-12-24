@@ -7,7 +7,7 @@ class AppDelegate < PM::Delegate
 
   def on_load(app, options)
     $notifier = Motion::Blitz
-    open ListScreen.new(nav_bar: true)
+    open_tab_bar ListScreen.new(nav_bar: true), SearchScreen.new(nav_bar: true), RandomScreen.new(nav_bar: true)
   end
 
   # Remove this if you are only supporting portrait

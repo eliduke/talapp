@@ -1,21 +1,14 @@
-class ListScreen < PM::TableScreen
+class SearchScreen < PM::TableScreen
   title "This American Life"
   stylesheet HomeScreenStylesheet
   row_height :auto, estimated: 100
 
-  refreshable callback: :fetch_data,
-    pull_message: "Pull down to refresh",
-    refreshing: "Loading...",
-    updated_format: "Last updated at %s",
-    updated_time_format: "%l:%M %p"
-
   def on_init
-    set_tab_bar_item system_item: :most_recent
+    set_tab_bar_item system_item: :search
   end
 
   def on_load
     @episodes = []
-    fetch_data
   end
 
   def fetch_data

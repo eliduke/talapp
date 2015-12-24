@@ -13,9 +13,10 @@ class StandardAppearance
         o.font = rmq.font.medium
       end
 
-      # UITabBar.appearance.tap do |o|
-      #   o.setTintColor rmq.color.blue
-      # end
+      UITabBar.appearance.tap do |o|
+        o.setTintColor rmq.color.white
+        o.setBarTintColor rmq.color.blue
+      end
 
       # UITableView.appearance.tap do |o|
       #   o.separatorColor = rmq.color.clear
