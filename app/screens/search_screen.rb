@@ -30,6 +30,7 @@ class SearchScreen < PM::GroupedTableScreen
         end_refreshing
         $notifier.dismiss
       else
+        $notifier.dismiss
         app.alert("Oops. Try again.")
       end
     end

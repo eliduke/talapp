@@ -14,7 +14,6 @@ class RandomScreen < PM::TableScreen
   end
 
   def on_load
-    @episode = Episode.new
     fetch_data
   end
 
@@ -25,12 +24,14 @@ class RandomScreen < PM::TableScreen
         update_table_data
         end_refreshing
       else
+        end_refreshing
         app.alert("Oops. Try again.")
       end
     end
   end
 
   def table_data
+    return [] unless @episode
     [{
       cells: [{
         cell_class: ShowCell,

@@ -17,7 +17,7 @@ class ShowCellLayout < MotionKit::Layout
     super
     get(:image).setImageWithURL(NSURL.URLWithString(episode.image_url))
     get(:title).text = "#{episode.number}: #{episode.title}"
-    get(:date).text = episode.date.to_s.nsdate.string_with_format("MMMM d, yyyy")
+    get(:date).text = episode.date.to_s.nsdate.string_with_format("MMMM d, yyyy") if episode.date
     get(:description).text = episode.description
   end
 

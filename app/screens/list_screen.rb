@@ -14,7 +14,7 @@ class ListScreen < PM::TableScreen
   end
 
   def on_load
-    @episodes = []
+    $notifier.loading(:black)
     fetch_data
   end
 
@@ -29,6 +29,7 @@ class ListScreen < PM::TableScreen
         end_refreshing
         $notifier.dismiss
       else
+        end_refreshing
         $notifier.dismiss
         app.alert("Oops. Try again.")
       end
@@ -36,6 +37,7 @@ class ListScreen < PM::TableScreen
   end
 
   def table_data
+    return [] unless @episodes
     [{
       cells: @episodes.map do |episode|
         {
@@ -67,6 +69,7 @@ class ListScreen < PM::TableScreen
           $notifier.dismiss
         end
       else
+        $notifier.dismiss
         app.alert("Oops. Try again.")
       end
     end
