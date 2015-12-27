@@ -15,7 +15,7 @@ class ListCellLayout < MotionKit::Layout
 
   def episode=(episode)
     super
-    get(:image).image = UIImage.imageWithData(NSData.dataWithContentsOfURL(NSURL.URLWithString(episode.image_url)))
+    get(:image).setImageWithURL(NSURL.URLWithString(episode.image_url))
     get(:title).text = "#{episode.number}: #{episode.title}"
     get(:date).text = episode.date.to_s.nsdate.string_with_format("MMMM d, yyyy")
     get(:description).text = episode.description.length > 145 ? "#{episode.description.gsub(/\n/, ' ')[0..145]}..." : episode.description

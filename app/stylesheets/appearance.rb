@@ -18,9 +18,9 @@ class StandardAppearance
         o.setBarTintColor rmq.color.blue
       end
 
-      # UITableView.appearance.tap do |o|
-      #   o.separatorColor = rmq.color.clear
-      # end
+      UITableView.appearance.tap do |o|
+        o.separatorColor = rmq.color.clear
+      end
 
       UINavigationBar.appearance.tap do |o|
         o.barTintColor = rmq.color.red
