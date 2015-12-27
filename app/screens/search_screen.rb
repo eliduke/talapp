@@ -1,6 +1,6 @@
-class SearchScreen < PM::TableScreen
+class SearchScreen < PM::GroupedTableScreen
   title "This American Life"
-  stylesheet HomeScreenStylesheet
+  stylesheet SearchScreenStylesheet
   row_height :auto, estimated: 100
 
   def on_init
@@ -11,32 +11,59 @@ class SearchScreen < PM::TableScreen
     @episodes = []
   end
 
+  def on_appear
+    find(:search).style do |st|
+      st.view.delegate = self
+      st.left_view = create!(UIView, :padding).tap { |padding| padding.append(UIView, :box).tap { |box| box.append(UIImageView, :magnifier) }}
+      st.left_view_mode = UITextFieldViewModeAlways
+    end
+  end
+
   def fetch_data
-    AFMotion::JSON.get("http://api.thisamericanlife.co") do |response|
+    AFMotion::JSON.get("http://api.thisamericanlife.co/q?q=#{@query}") do |response|
       if response.success?
         @episodes = []
         response.object["podcasts"].each do |episode|
           @episodes << Episode.new(episode)
-          update_table_data
-          end_refreshing
         end
+        update_table_data
+        end_refreshing
+        $notifier.dismiss
       else
         app.alert("Oops. Try again.")
       end
     end
   end
 
+  def table_header_view
+    create!(UIView, :header).tap do |view|
+      view.append(UITextField, :search)
+    end
+  end
+
   def table_data
     [{
-      cells: @episodes.map do |episode|
-        {
-          cell_class: ListCell,
-          properties: { params: { episode: episode } },
-          action: :show_episode,
-          arguments: episode
-        }
+      cells:
+      if @episodes.size > 0 || !@query
+        @episodes.map do |episode|
+          {
+            cell_class: ListCell,
+            properties: { params: { episode: episode } },
+            action: :show_episode,
+            arguments: episode
+          }
+        end
+      else
+        [{ title: "No Results Found" }]
       end
     }]
+  end
+
+  def textFieldShouldReturn(field)
+    $notifier.loading(:black)
+    @query = find(:search).data
+    find(:search).get.endEditing(true)
+    fetch_data
   end
 
   def show_episode(episode)

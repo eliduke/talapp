@@ -55,6 +55,8 @@ GEM
       bundler
     minitest (5.8.3)
     molinillo (0.4.0)
+    moticons (1.0.0)
+      motion-cocoapods
     motion-blitz (1.2.0)
       motion-cocoapods (>= 1.4.0)
     motion-cocoapods (1.7.8)
@@ -93,6 +95,7 @@ PLATFORMS
 DEPENDENCIES
   afmotion
   bubble-wrap
+  moticons
   motion-blitz
   motion-cocoapods
   motion-kit

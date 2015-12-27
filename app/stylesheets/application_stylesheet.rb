@@ -20,12 +20,17 @@ class ApplicationStylesheet < RubyMotionQuery::Stylesheet
 
     color.add_named :blue, '442A56'
     color.add_named :red, 'E93E2F'
-    color.add_named :light_gray, '#EFEFF4'
-    color.add_named :tint, '236EB7'
+    color.add_named :light_gray, '#eaeaea'
+    color.add_named :medium_gray, '#c0c0c0'
+    color.add_named :dark_gray, '#404040'
     color.add_named :translucent_black, color(0, 0, 0, 0.4)
-    color.add_named :battleship_gray,   '#7F7F7F'
 
     StandardAppearance.apply app.window
+
+  end
+
+  def root_view(st)
+    st.background_color = color.light_gray
   end
 
   def standard_button(st)

@@ -24,10 +24,12 @@ class ListScreen < PM::TableScreen
         @episodes = []
         response.object["podcasts"].each do |episode|
           @episodes << Episode.new(episode)
-          update_table_data
-          end_refreshing
         end
+        update_table_data
+        end_refreshing
+        $notifier.dismiss
       else
+        $notifier.dismiss
         app.alert("Oops. Try again.")
       end
     end
@@ -42,8 +44,33 @@ class ListScreen < PM::TableScreen
           action: :show_episode,
           arguments: episode
         }
-      end
+      end + load_more
     }]
+  end
+
+  def load_more
+    [{
+      cell_class: Button,
+      properties: { params: { text: "Load More Episodes" } },
+      action: :load_more_episodes
+    }]
+  end
+
+  def load_more_episodes
+    $notifier.loading(:black)
+    page = (@episodes.size / 10) + 1
+    AFMotion::JSON.get("http://api.thisamericanlife.co?page=#{page}") do |response|
+      if response.success?
+        response.object["podcasts"].each do |episode|
+          @episodes << Episode.new(episode)
+          update_table_data
+          $notifier.dismiss
+        end
+      else
+        app.alert("Oops. Try again.")
+      end
+    end
+
   end
 
   def show_episode(episode)

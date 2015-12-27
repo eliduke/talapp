@@ -3,23 +3,27 @@ class RandomScreen < PM::TableScreen
   stylesheet HomeScreenStylesheet
   row_height :auto, estimated: 100
 
+  refreshable callback: :fetch_data,
+    pull_message: "Pull down to refresh",
+    refreshing: "Loading...",
+    updated_format: "Last updated at %s",
+    updated_time_format: "%l:%M %p"
+
   def on_init
     set_tab_bar_item system_item: :featured
   end
 
   def on_load
-    @episodes = []
+    @episode = Episode.new
+    fetch_data
   end
 
   def fetch_data
-    AFMotion::JSON.get("http://api.thisamericanlife.co") do |response|
+    AFMotion::JSON.get("http://api.thisamericanlife.co/random") do |response|
       if response.success?
-        @episodes = []
-        response.object["podcasts"].each do |episode|
-          @episodes << Episode.new(episode)
-          update_table_data
-          end_refreshing
-        end
+        @episode = Episode.new(response.object["podcast"])
+        update_table_data
+        end_refreshing
       else
         app.alert("Oops. Try again.")
       end
@@ -28,19 +32,21 @@ class RandomScreen < PM::TableScreen
 
   def table_data
     [{
-      cells: @episodes.map do |episode|
-        {
-          cell_class: ListCell,
-          properties: { params: { episode: episode } },
-          action: :show_episode,
-          arguments: episode
-        }
-      end
+      cells: [{
+        cell_class: ShowCell,
+        properties: { params: { episode: @episode } },
+        selection_style: :none,
+      },{
+        cell_class: Button,
+        properties: { params: { text: "Play Episode" } },
+        action: :play_podcast,
+        arguments: @episode.podcast_url
+      }]
     }]
   end
 
-  def show_episode(episode)
-    open ShowScreen.new(nav_bar: true, episode: episode)
+  def play_podcast(url)
+    BW::Media.play_modal(url)
   end
 
   # You don't have to reapply styles to all UIViews, if you want to optimize, another way to do it

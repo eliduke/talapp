@@ -45,10 +45,10 @@ Motion::Project::App.setup do |app|
   # app.vendor_project('vendor/DSLCalendarView', :static, :cflags => '-fobjc-arc') # Using arc
 
   app.pods do
-    pod 'SDWebImage'
-    pod 'SVProgressHUD'
-  #   pod 'JGProgressHUD'
-  #   pod "FontasticIcons"
+    pod "SDWebImage"
+    pod "SVProgressHUD"
+    pod "FontasticIcons"
+    pod "SVPullToRefresh"
   end
 
   app.development do

@@ -8,6 +8,7 @@ gem "afmotion"
 gem "newclear"
 gem "motion-blitz"
 gem "motion-kit"
+gem "moticons"
 gem 'sugarcube', require: ['sugarcube-nsdate', 'sugarcube-factories']
 gem "bubble-wrap", require: ['bubble-wrap/media', 'bubble-wrap/mail']
 

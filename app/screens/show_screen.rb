@@ -12,7 +12,8 @@ class ShowScreen < PM::TableScreen
         properties: { params: { episode: @episode } },
         selection_style: :none,
       },{
-        cell_class: PlayButton,
+        cell_class: Button,
+        properties: { params: { text: "Play Episode" } },
         action: :play_podcast,
         arguments: @episode.podcast_url
       }]
