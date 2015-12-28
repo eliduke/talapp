@@ -4,7 +4,7 @@ class SearchScreen < PM::GroupedTableScreen
   row_height :auto, estimated: 100
 
   def on_init
-    set_tab_bar_item system_item: :search
+    set_tab_bar_item title: "Search", item: icon_image(:awesome, :search, size: 25)
   end
 
   def on_load

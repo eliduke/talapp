@@ -17,11 +17,11 @@ class ButtonLayout < MotionKit::Layout
 
   def button_style
     constraints do
+      height.equals(50)
       top.equals(:superview)
       left.equals(:superview).plus(PADDING)
       right.equals(:superview).minus(PADDING)
-      bottom.equals(:superview)
-      height.equals(50)
+      bottom.equals(:superview).minus(PADDING)
     end
     color rmq.color.white
     text_alignment NSTextAlignmentCenter

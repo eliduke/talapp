@@ -10,7 +10,7 @@ class RandomScreen < PM::TableScreen
     updated_time_format: "%l:%M %p"
 
   def on_init
-    set_tab_bar_item system_item: :featured
+    set_tab_bar_item title: "Random", item: icon_image(:awesome, :random, size: 25)
   end
 
   def on_load

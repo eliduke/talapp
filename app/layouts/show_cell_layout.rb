@@ -6,7 +6,10 @@ class ShowCellLayout < MotionKit::Layout
 
   def layout
     root :cell do
-      add UIImageView, :image
+      add UIView, :images do
+        add UIImageView, :image_left
+        add UIImageView, :image_right
+      end
       add UILabel, :title
       add UILabel, :date
       add UILabel, :description
@@ -15,23 +18,40 @@ class ShowCellLayout < MotionKit::Layout
 
   def episode=(episode)
     super
-    get(:image).setImageWithURL(NSURL.URLWithString(episode.image_url))
+    image = UIImage.imageWithData(NSData.dataWithContentsOfURL(NSURL.URLWithString(episode.image_url)))
+    get(:image_left).image = image
+    get(:image_right).image = image
     get(:title).text = "#{episode.number}: #{episode.title}"
     get(:date).text = episode.date.to_s.nsdate.string_with_format("MMMM d, yyyy") if episode.date
     get(:description).text = episode.description
   end
 
-  def image_style
+  def images_style
     constraints do
-      size.equals(200)
-      top.equals(:superview).plus(PADDING)
-      left.equals(:superview).plus(75)
+      width.equals(:superview)
+      height.equals(165)
+      top_left.equals(:superview).plus(PADDING)
+    end
+  end
+
+  def image_left_style
+    constraints do
+      size.equals(165)
+      top_left.equals(:images)
+    end
+  end
+
+  def image_right_style
+    constraints do
+      size.equals(165)
+      top.equals(:images)
+      left.equals(:image_left, :right).plus(PADDING)
     end
   end
 
   def title_style
     constraints do
-      top.equals(:image, :bottom).plus(PADDING)
+      top.equals(:images, :bottom).plus(PADDING)
       left.equals(:superview).plus(PADDING)
       right.equals(:superview).minus(PADDING)
     end

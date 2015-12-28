@@ -10,7 +10,7 @@ class ListScreen < PM::TableScreen
     updated_time_format: "%l:%M %p"
 
   def on_init
-    set_tab_bar_item system_item: :most_recent
+    set_tab_bar_item title: "Recent", item: icon_image(:awesome, :clock_o, size: 25)
   end
 
   def on_load

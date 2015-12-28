@@ -28,8 +28,8 @@ class StandardAppearance
 
         o.setTitleTextAttributes( {
           UITextAttributeFont => rmq.font.large,
-          UITextAttributeTextColor => rmq.color.white
-          #UITextAttributeTextShadowColor => color.clear
+          UITextAttributeTextColor => rmq.color.white,
+          UITextAttributeTextShadowColor => rmq.color.dark_gray
         })
       end
 
