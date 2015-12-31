@@ -23,6 +23,10 @@ class ButtonLayout < MotionKit::Layout
       right.equals(:superview).minus(PADDING)
       bottom.equals(:superview).minus(PADDING)
     end
+    layer do
+      corner_radius 5
+      masks_to_bounds true
+    end
     color rmq.color.white
     text_alignment NSTextAlignmentCenter
     background_color rmq.color.blue

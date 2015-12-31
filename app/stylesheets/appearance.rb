@@ -14,8 +14,9 @@ class StandardAppearance
       # end
 
       UITabBar.appearance.tap do |o|
-        o.setTintColor rmq.color.white
-        o.setBarTintColor rmq.color.blue
+        o.tintColor = rmq.color.white
+        o.barTintColor = rmq.color.blue
+        o.translucent = false
       end
 
       UITableView.appearance.tap do |o|
@@ -24,7 +25,7 @@ class StandardAppearance
 
       UINavigationBar.appearance.tap do |o|
         o.barTintColor = rmq.color.red
-        o.setTintColor rmq.color.white
+        o.tintColor = rmq.color.white
 
         o.setTitleTextAttributes( {
           UITextAttributeFont => rmq.font.large,

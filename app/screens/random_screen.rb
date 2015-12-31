@@ -3,17 +3,12 @@ class RandomScreen < PM::TableScreen
   stylesheet HomeScreenStylesheet
   row_height :auto, estimated: 100
 
-  refreshable callback: :fetch_data,
-    pull_message: "Pull down to refresh",
-    refreshing: "Loading...",
-    updated_format: "Last updated at %s",
-    updated_time_format: "%l:%M %p"
-
   def on_init
     set_tab_bar_item title: "Random", item: icon_image(:awesome, :random, size: 25)
   end
 
   def on_load
+    set_nav_bar_button :right, title: icon_image(:awesome, :refresh, size: 20, color: color.white), action: :refresh
     fetch_data
   end
 
@@ -44,6 +39,10 @@ class RandomScreen < PM::TableScreen
         arguments: @episode.podcast_url
       }]
     }]
+  end
+
+  def refresh
+    fetch_data
   end
 
   def play_podcast(url)

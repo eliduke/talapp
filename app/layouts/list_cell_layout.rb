@@ -28,6 +28,10 @@ class ListCellLayout < MotionKit::Layout
       left.equals(:superview).plus(PADDING)
       bottom.equals(:superview).minus(PADDING)
     end
+    layer do
+      corner_radius 5
+      masks_to_bounds true
+    end
   end
 
   def title_style

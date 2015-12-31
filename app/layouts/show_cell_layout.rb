@@ -39,6 +39,10 @@ class ShowCellLayout < MotionKit::Layout
       size.equals(165)
       top_left.equals(:images)
     end
+    layer do
+      corner_radius 5
+      masks_to_bounds true
+    end
   end
 
   def image_right_style
@@ -46,6 +50,10 @@ class ShowCellLayout < MotionKit::Layout
       size.equals(165)
       top.equals(:images)
       left.equals(:image_left, :right).plus(PADDING)
+    end
+    layer do
+      corner_radius 5
+      masks_to_bounds true
     end
   end
 
