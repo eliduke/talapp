@@ -1,9 +1,9 @@
 talapp
 ===================
 
-This is a RubyMotion client for the [](thisamericanlife.co) API. You can read the docs here:
+This is a RubyMotion client for the [thisamericanlife.co](http://thisamericanlife.co) API. You can read the docs here:
 
-[](http://thisamericanlife.co/about)
+[thisamericanlife.co/about](http://thisamericanlife.co/about)
 
 To get it up and running locally, you will need a current license for RubyMotion, then clone the repo wherever you see fit.
 
