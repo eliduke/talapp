@@ -37,6 +37,8 @@ Motion::Project::App.setup do |app|
   app.files += Dir.glob(File.join(app.project_dir, 'lib/**/*.rb'))
 
   app.info_plist['NSAppTransportSecurity'] = { 'NSAllowsArbitraryLoads' => true }
+  app.info_plist['UIViewControllerBasedStatusBarAppearance'] = false
+  app.info_plist['UIStatusBarStyle'] = "UIStatusBarStyleLightContent"
 
   # app.fonts = ['Oswald-Regular.ttf', 'FontAwesome.otf'] # These go in /resources
   # Or use all *.ttf fonts in the /resources/fonts directory:

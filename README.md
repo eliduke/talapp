@@ -13,8 +13,8 @@ git clone git@github.com:eliduke/talapp.git
 
 Then run `bundle`, `rake pod:install`, and then `rake`!
 
-![Recent Episodes](https://cloud.githubusercontent.com/assets/1372520/12068435/f7f5843e-afc2-11e5-8a7b-bb6dfaa2365c.png)
+![Recent Episodes](https://cloud.githubusercontent.com/assets/1372520/12082209/a27d0eae-b243-11e5-8fb8-05a4f385a13c.png)
 
-![Search](https://cloud.githubusercontent.com/assets/1372520/12068436/fc01b5b6-afc2-11e5-98e2-a2b082d16f62.png)
+![Search](https://cloud.githubusercontent.com/assets/1372520/12082212/acef2aac-b243-11e5-99b9-aad55195dcfc.png)
 
-![Random Episode](https://cloud.githubusercontent.com/assets/1372520/12068437/fd9d5e84-afc2-11e5-8616-e0aa7907e3cc.png)
+![Random Episode](https://cloud.githubusercontent.com/assets/1372520/12082214/b7d3f6b4-b243-11e5-8315-5af93a233fdf.png)
