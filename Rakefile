@@ -10,8 +10,10 @@ Bundler.require
 Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings
 
-  app.name = 'talapp'
-  app.identifier = 'com.your_domain_here.talapp'
+  app.name = 'Talapp'
+  app.identifier = 'com.eliduke.talapp'
+  app.codesign_certificate = 'iPhone Developer: Eli Duke (XTA49VR468)'
+  app.provisioning_profile = '/talapp.mobileprovision'
 
   app.short_version = '0.1.0'
   # Get version from git
@@ -52,13 +54,13 @@ Motion::Project::App.setup do |app|
   end
 
   app.development do
-    app.codesign_certificate = "iPhone Developer: YOURNAME"
+    app.codesign_certificate = "iPhone Developer: Eli Duke"
     app.provisioning_profile = "signing/talapp.mobileprovision"
   end
 
   app.release do
     app.entitlements['get-task-allow'] = false
-    app.codesign_certificate = 'iPhone Distribution: YOURNAME'
+    app.codesign_certificate = 'iPhone Distribution: Eli Duke'
     app.provisioning_profile = "signing/talapp.mobileprovision"
     app.entitlements['beta-reports-active'] = true # For TestFlight
 

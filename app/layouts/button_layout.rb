@@ -29,7 +29,7 @@ class ButtonLayout < MotionKit::Layout
     end
     color rmq.color.white
     text_alignment NSTextAlignmentCenter
-    background_color rmq.color.blue
+    background_color rmq.color.red
     font rmq.font.medium
   end
 
