@@ -5,6 +5,7 @@ class ApplicationStylesheet < RubyMotionQuery::Stylesheet
     regular = 'Helvetica Neue'
     font.add_named :very_large,  regular, 56
     font.add_named :large,       regular, 24
+    font.add_named :big,         regular, 20
     font.add_named :medium,      regular, 18
     font.add_named :standard,    regular, 16
     font.add_named :small,       regular, 14
@@ -12,8 +13,8 @@ class ApplicationStylesheet < RubyMotionQuery::Stylesheet
     font.add_named :nano,        regular, 10
 
     bold = 'HelveticaNeue-Bold'
-    font.add_named :big_bold,       bold, 34
     font.add_named :large_bold,     bold, 24
+    font.add_named :big_bold,       bold, 20
     font.add_named :medium_bold,    bold, 18
     font.add_named :standard_bold,  bold, 16
     font.add_named :small_bold,     bold, 14

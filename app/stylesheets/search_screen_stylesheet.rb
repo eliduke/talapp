@@ -7,7 +7,7 @@ class SearchScreenStylesheet < ApplicationStylesheet
   def search(st)
     st.frame = {t: 15, l: 15, w: device.width - 30, h: 30}
     st.background_color = color.white
-    st.font = font.small
+    st.font = font.standard
     st.corner_radius = 5
     st.placeholder = "Looking for something?"
     st.return_key_type = :search
@@ -19,7 +19,7 @@ class SearchScreenStylesheet < ApplicationStylesheet
 
   def box(st)
     st.frame = { h: 30, w: 30 }
-    st.background_color = color.medium_gray
+    st.background_color = color.blue
   end
 
   def magnifier(st)

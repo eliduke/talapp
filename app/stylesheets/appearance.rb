@@ -4,14 +4,16 @@ class StandardAppearance
   def self.apply(window)
     Dispatch.once do
 
-      # UIWindow.appearance.tap do |o|
-      #   o.tintColor = rmq.color.blue
-      # end
+      UINavigationBar.appearance.tap do |o|
+        o.tintColor = rmq.color.white
+        o.barTintColor = rmq.color.red
+        o.translucent = false
 
-      # UILabel.appearance.tap do |o|
-      #   o.setTextColor rmq.color.black
-      #   o.font = rmq.font.medium
-      # end
+        o.setTitleTextAttributes( {
+          UITextAttributeFont => rmq.font.large,
+          UITextAttributeTextColor => rmq.color.white
+        })
+      end
 
       UITabBar.appearance.tap do |o|
         o.tintColor = rmq.color.white
@@ -23,29 +25,9 @@ class StandardAppearance
         o.separatorColor = rmq.color.clear
       end
 
-      UINavigationBar.appearance.tap do |o|
-        o.barTintColor = rmq.color.red
-        o.tintColor = rmq.color.white
-
-        o.setTitleTextAttributes( {
-          UITextAttributeFont => rmq.font.large,
-          UITextAttributeTextColor => rmq.color.white,
-          UITextAttributeTextShadowColor => rmq.color.dark_gray
-        })
+      UITextField.appearance.tap do |o|
+        o.clearButtonMode = UITextFieldViewModeAlways
       end
-
-      #  UIBarButtonItem.appearance.tap do |o|
-      #    o.setTitleTextAttributes( {
-      #      UITextAttributeFont => rmq.font.small_regular,
-      #      UITextAttributeTextColor => rmq.color.white
-      #      #UITextAttributeTextShadowColor => rmq.color.clear
-      #    }, forState: UIControlStateNormal)
-      #    o.setTitleTextAttributes( {
-      #      UITextAttributeFont => rmq.font.small,
-      #      UITextAttributeTextColor => rmq.color.gray
-      #      #UITextAttributeTextShadowColor => rmq.color.clear
-      #    }, forState: UIControlStateDisabled)
-      #  end
 
     end
   end

@@ -20,7 +20,7 @@ class SearchScreen < PM::GroupedTableScreen
   end
 
   def fetch_data
-    AFMotion::JSON.get("http://api.thisamericanlife.co/q?q=#{@query}") do |response|
+    AFMotion::JSON.get("http://api.thisamericanlife.co/q?q=#{@query.strip}") do |response|
       if response.success?
         @episodes = []
         response.object["podcasts"].each do |episode|
@@ -55,7 +55,7 @@ class SearchScreen < PM::GroupedTableScreen
           }
         end
       else
-        [{ title: "No Results Found" }]
+        [{ title: "No episodes found for '#{@query}'." }]
       end
     }]
   end
@@ -63,28 +63,16 @@ class SearchScreen < PM::GroupedTableScreen
   def textFieldShouldReturn(field)
     $notifier.loading(:black)
     @query = find(:search).data
-    find(:search).get.endEditing(true)
+    field.endEditing(true)
     fetch_data
   end
+
+  # def textFieldShouldClear(field)
+  #   field.endEditing(true)
+  # end
 
   def show_episode(episode)
     open ShowScreen.new(nav_bar: true, episode: episode)
   end
 
-  # You don't have to reapply styles to all UIViews, if you want to optimize, another way to do it
-  # is tag the views you need to restyle in your stylesheet, then only reapply the tagged views, like so:
-  #   def logo(st)
-  #     st.frame = {t: 10, w: 200, h: 96}
-  #     st.centered = :horizontal
-  #     st.image = image.resource('logo')
-  #     st.tag(:reapply_style)
-  #   end
-  #
-  # Then in will_animate_rotate
-  #   find(:reapply_style).reapply_styles#
-
-  # Remove the following if you're only using portrait
-  def will_animate_rotate(orientation, duration)
-    find.all.reapply_styles
-  end
 end
