@@ -53,7 +53,7 @@ class ListScreen < PM::TableScreen
   def load_more
     [{
       cell_class: Button,
-      properties: { params: { text: "Load More Episodes" } },
+      properties: { params: { settings: { text: "Load More Episodes", color: rmq.color.red } } },
       action: :load_more_episodes
     }]
   end
