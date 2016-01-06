@@ -17,6 +17,10 @@ class BookmarkScreen < PM::TableScreen
     fetch_data
   end
 
+  def on_appear
+    fetch_data
+  end
+
   def fetch_data
     @episodes = []
     Bookmark.all.array.each do |bookmark|
@@ -27,9 +31,9 @@ class BookmarkScreen < PM::TableScreen
   end
 
   def table_data
-    return [] unless @episodes
+    return no_bookmarks unless @episodes.size > 0
     [{
-      cells: @episodes.map do |episode|
+      cells: @episodes.reverse.map do |episode|
         {
           cell_class: ListCell,
           properties: { params: { episode: episode } },
@@ -40,8 +44,22 @@ class BookmarkScreen < PM::TableScreen
     }]
   end
 
+  def no_bookmarks
+    [{
+      cells: [{
+        cell_class: Button,
+        properties: { params: { settings: { text: "No Bookmarks", color: rmq.color.medium_gray } } },
+        action: :hey_now
+      }]
+    }]
+  end
+
   def show_episode(episode)
     open ShowScreen.new(nav_bar: true, episode: episode)
+  end
+
+  def hey_now
+    app.alert("Hey! Watch where you're poking that thing!")
   end
 
 end

@@ -7,7 +7,7 @@ class Button < UITableViewCell
   end
 
   def params=(params)
-    @layout.text = params[:text]
+    @layout.settings = params[:settings]
   end
 
   def updateViewConstraints

@@ -17,24 +17,34 @@ class ShowScreen < PM::TableScreen
         selection_style: :none,
       },{
         cell_class: Button,
-        properties: { params: { text: "Bookmark" } },
+        properties: { params: { settings: { text: @episode.bookmarked? ? "Bookmarked" : "Bookmark", color: rmq.color.blue } } },
         action: :bookmark,
         arguments: @episode
       },{
         cell_class: Button,
-        properties: { params: { text: "Play Episode" } },
+        properties: { params: { settings: { text: "Play Episode", color: rmq.color.red } } },
         action: :play_podcast,
         arguments: @episode.podcast_url
       }]
     }]
   end
 
-  def bookmark(podcast)
-    Bookmark.create(number: podcast.number, title: podcast.title, published_on: podcast.date, summary: podcast.description, image_url: podcast.image_url, podcast_url: podcast.podcast_url)
-    if cdq.save
-      $notifier.success("Episode Bookmarked!")
+  def bookmark(episode)
+    if episode.bookmarked?
+      bm = Bookmark.where(:number).eq(episode.number).first
+      bm.destroy
+      if cdq.save
+        update_table_data
+      else
+        $notifier.error("Oops! Try again.")
+      end
     else
-      $notifier.error("Oops! Try again.")
+      Bookmark.create(number: episode.number, title: episode.title, published_on: episode.date, summary: episode.description, image_url: episode.image_url, podcast_url: episode.podcast_url)
+      if cdq.save
+        update_table_data
+      else
+        $notifier.error("Oops! Try again.")
+      end
     end
   end
 

@@ -2,7 +2,7 @@ class ButtonLayout < MotionKit::Layout
 
   PADDING = 15
 
-  attr_accessor :text
+  attr_accessor :settings
 
   def layout
     root :cell do
@@ -10,18 +10,17 @@ class ButtonLayout < MotionKit::Layout
     end
   end
 
-  def text=(text)
+  def settings=(settings)
     super
-    get(:button).text = text
+    get(:button).text = settings[:text]
+    get(:button).backgroundColor = settings[:color]
   end
 
   def button_style
     constraints do
       height.equals(50)
-      top.equals(:superview)
-      left.equals(:superview).plus(PADDING)
-      right.equals(:superview).minus(PADDING)
-      bottom.equals(:superview).minus(PADDING)
+      top_left.equals(:superview).plus(PADDING)
+      bottom_right.equals(:superview).minus(PADDING)
     end
     layer do
       corner_radius 5
@@ -29,7 +28,6 @@ class ButtonLayout < MotionKit::Layout
     end
     color rmq.color.white
     text_alignment NSTextAlignmentCenter
-    background_color rmq.color.red
     font rmq.font.medium
   end
 
