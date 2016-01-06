@@ -15,6 +15,8 @@ Motion::Project::App.setup do |app|
   app.codesign_certificate = 'iPhone Developer: Eli Duke (XTA49VR468)'
   app.provisioning_profile = '/talapp.mobileprovision'
 
+  app.background_modes = [:audio]
+
   app.short_version = '0.1.0'
   # Get version from git
   #app.version = (`git rev-list HEAD --count`.strip.to_i).to_s
@@ -36,7 +38,17 @@ Motion::Project::App.setup do |app|
 
   app.files += Dir.glob(File.join(app.project_dir, 'lib/**/*.rb'))
 
-  app.info_plist['NSAppTransportSecurity'] = { 'NSAllowsArbitraryLoads' => true }
+  # Because I don't need https for thisamericanlife.co
+  app.info_plist["NSAppTransportSecurity"] = {
+    "NSExceptionDomains" => {
+      "thisamericanlife.co" => {
+        "NSIncludesSubdomains" => true,
+        "NSTemporaryExceptionAllowsInsecureHTTPLoads" => true,
+      }
+    }
+  }
+
+  # White Status Bar Text
   app.info_plist['UIViewControllerBasedStatusBarAppearance'] = false
   app.info_plist['UIStatusBarStyle'] = "UIStatusBarStyleLightContent"
 
@@ -75,3 +87,4 @@ Motion::Project::App.setup do |app|
   puts "Using profile: #{app.provisioning_profile}"
   puts "Using certificate: #{app.codesign_certificate}"
 end
+task :"build:simulator" => :"schema:build"

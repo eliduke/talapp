@@ -1,0 +1,3 @@
+class Bookmark < CDQManagedObject
+
+end

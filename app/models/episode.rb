@@ -9,4 +9,8 @@ class Episode
     end
   end
 
+  def bookmarked?
+    Bookmark.where(:number).eq(self.number).size == 1
+  end
+
 end

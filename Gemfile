@@ -1,12 +1,16 @@
 source "https://rubygems.org"
 
+ruby "2.2.3"
+
 gem "rake"
+gem "cdq"
 gem "motion-cocoapods"
 gem "redpotion"
 gem "motion-yaml", "1.4" # Version 1.5 breaks CDQ
 gem "afmotion"
 gem "newclear"
 gem "motion-blitz"
+gem "motion-kit"
 gem "motion-kit"
 gem "moticons"
 gem 'sugarcube', require: ['sugarcube-nsdate', 'sugarcube-factories']
