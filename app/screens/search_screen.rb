@@ -11,11 +11,14 @@ class SearchScreen < PM::GroupedTableScreen
     @episodes = []
   end
 
-  def on_appear
+  def will_appear
     find(:search).style do |st|
       st.view.delegate = self
       st.left_view = create!(UIView, :padding).tap { |padding| padding.append(UIView, :box).tap { |box| box.append(UIImageView, :magnifier) }}
       st.left_view_mode = UITextFieldViewModeAlways
+    end
+    if @episodes.size == 0
+      find(:search).get.becomeFirstResponder
     end
   end
 
@@ -67,9 +70,9 @@ class SearchScreen < PM::GroupedTableScreen
     fetch_data
   end
 
-  # def textFieldShouldClear(field)
-  #   field.endEditing(true)
-  # end
+  def textFieldShouldClear(field)
+    field.endEditing(true)
+  end
 
   def show_episode(episode)
     open ShowScreen.new(nav_bar: true, episode: episode)

@@ -1,0 +1,2 @@
+class LoadMore < UITableViewCell
+end
