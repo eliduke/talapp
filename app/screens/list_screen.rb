@@ -19,7 +19,8 @@ class ListScreen < PM::TableScreen
   end
 
   def fetch_data
-    AFMotion::JSON.get("http://api.thisamericanlife.co") do |response|
+    @page = 1
+    AFMotion::JSON.get("http://api.thisamericanlife.co?page=#{@page}") do |response|
       if response.success?
         @episodes = []
         response.object["podcasts"].each do |episode|
@@ -46,24 +47,21 @@ class ListScreen < PM::TableScreen
           action: :show_episode,
           arguments: episode
         }
-      end + load_more
+      end
     }]
-  end
-
-  def load_more
-    [{ cell_class: LoadMore, height: 50 }]
   end
 
   def will_display_cell(cell, index_path)
     cell.backgroundColor = UIColor.clearColor
-    if index_path.row >= @episodes.length
+    if index_path.row + 1 >= @episodes.length
       load_more_episodes
     end
   end
 
   def load_more_episodes
-    page = (@episodes.size / 10) + 1
-    AFMotion::JSON.get("http://api.thisamericanlife.co?page=#{page}") do |response|
+    @page += 1
+    $notifier.loading(:black)
+    AFMotion::JSON.get("http://api.thisamericanlife.co?page=#{@page}") do |response|
       if response.success?
         response.object["podcasts"].each do |episode|
           @episodes << Episode.new(episode)
@@ -75,7 +73,6 @@ class ListScreen < PM::TableScreen
         app.alert("Oops. Try again.")
       end
     end
-
   end
 
   def show_episode(episode)

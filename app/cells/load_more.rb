@@ -1,2 +1,0 @@
-class LoadMore < UITableViewCell
-end
