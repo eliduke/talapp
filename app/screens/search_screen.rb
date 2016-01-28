@@ -9,6 +9,13 @@ class SearchScreen < PM::GroupedTableScreen
 
   def on_load
     @episodes = []
+    tapGesture = UITapGestureRecognizer.alloc.initWithTarget(self, action: :dismiss_keyboard)
+    tapGesture.cancelsTouchesInView = false
+    self.view.addGestureRecognizer(tapGesture)
+  end
+
+  def dismiss_keyboard
+    find(:search).get.resignFirstResponder
   end
 
   def will_appear
