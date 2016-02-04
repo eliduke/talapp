@@ -14,7 +14,6 @@ class ListScreen < PM::TableScreen
   end
 
   def on_load
-    $notifier.loading(:black)
     fetch_data
   end
 

@@ -32,23 +32,17 @@ class RandomScreen < PM::TableScreen
         cell_class: ShowCell,
         properties: { params: { episode: @episode } },
         selection_style: :none,
-      },{
-        cell_class: Button,
-        properties: { params: { settings: { text: @episode.bookmarked? ? "Bookmarked" : "Bookmark", color: rmq.color.blue } } },
-        action: :bookmark,
-        arguments: @episode
-      },{
-        cell_class: Button,
-        properties: { params: { settings: { text: "Play Episode", color: rmq.color.red } } },
-        action: :play_podcast,
-        arguments: @episode.podcast_url
       }]
     }]
   end
 
-  def bookmark(episode)
-    if episode.bookmarked?
-      bm = Bookmark.where(:number).eq(episode.number).first
+  def refresh
+    fetch_data
+  end
+
+  def bookmark
+    if @episode.bookmarked?
+      bm = Bookmark.where(:number).eq(@episode.number).first
       bm.destroy
       if cdq.save
         $notifier.success("Bye bye, Bookmark.")
@@ -57,7 +51,7 @@ class RandomScreen < PM::TableScreen
         $notifier.error("Oops! Try again.")
       end
     else
-      Bookmark.create(number: episode.number, title: episode.title, published_on: episode.date, summary: episode.description, image_url: episode.image_url, podcast_url: episode.podcast_url)
+      Bookmark.create(number: @episode.number, title: @episode.title, published_on: @episode.date, summary: @episode.description, image_url: @episode.image_url, podcast_url: @episode.podcast_url)
       if cdq.save
         $notifier.success("Episode Bookmarked!")
         update_table_data
@@ -67,12 +61,8 @@ class RandomScreen < PM::TableScreen
     end
   end
 
-  def refresh
-    fetch_data
-  end
-
-  def play_podcast(url)
-    BW::Media.play_modal(url)
+  def play
+    BW::Media.play_modal(@episode.podcast_url)
   end
 
 end

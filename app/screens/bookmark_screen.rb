@@ -38,7 +38,8 @@ class BookmarkScreen < PM::TableScreen
           cell_class: ListCell,
           properties: { params: { episode: episode } },
           action: :show_episode,
-          arguments: episode
+          arguments: episode,
+          editing_style: :delete
         }
       end
     }]
@@ -56,6 +57,16 @@ class BookmarkScreen < PM::TableScreen
 
   def show_episode(episode)
     open ShowScreen.new(nav_bar: true, episode: episode)
+  end
+
+  def on_cell_deleted(cell)
+    bm = Bookmark.where(:number).eq(cell[:arguments].number).first
+    bm.destroy
+    if cdq.save
+      $notifier.success("Bye bye, Bookmark.")
+    else
+      $notifier.error("Oops! Try again.")
+    end
   end
 
   def hey_now

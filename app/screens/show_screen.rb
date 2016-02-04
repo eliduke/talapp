@@ -6,7 +6,6 @@ class ShowScreen < PM::TableScreen
   attr_accessor :episode
 
   def on_load
-    $episode = @episode
   end
 
   def table_data
@@ -15,21 +14,11 @@ class ShowScreen < PM::TableScreen
         cell_class: ShowCell,
         properties: { params: { episode: @episode } },
         selection_style: :none,
-      },{
-        cell_class: Button,
-        properties: { params: { settings: { text: @episode.bookmarked? ? "Bookmarked" : "Bookmark", color: rmq.color.blue } } },
-        action: :bookmark,
-        arguments: @episode
-      },{
-        cell_class: Button,
-        properties: { params: { settings: { text: "Play Episode", color: rmq.color.red } } },
-        action: :play_podcast,
-        arguments: @episode.podcast_url
       }]
     }]
   end
 
-  def bookmark(episode)
+  def bookmark
     if episode.bookmarked?
       bm = Bookmark.where(:number).eq(episode.number).first
       bm.destroy
@@ -50,8 +39,8 @@ class ShowScreen < PM::TableScreen
     end
   end
 
-  def play_podcast(url)
-    BW::Media.play_modal(url)
+  def play
+    BW::Media.play_modal(episode.podcast_url)
   end
 
 end
